@@ -16,35 +16,28 @@ datasource db {
 model Marca {
   id             Int         @id @default(autoincrement())
   nome           String      @db.VarChar(30)
-  marcaCarros    MarcaCarro[]
-  @@map("Marcas")
+  carros         Carro[]
+  @@map("marcas")
 }
 
 model Carro {
-  id           Int       @id @default(autoincrement())
-  modelo       String  @db.VarChar(30)
-  ano          Int       @db.SmallInt
-  preco        Decimal     @db.Decimal(10, 2)
-  km           Int
-  destaque     Boolean     @default(true)
-  foto         String
-  acessorios   String?
-  combustivel  combustiveis @default(FLEX)
-  marcaCarros  MarcaCarro[]
+  id             Int           @id @default(autoincrement())
+  modelo         String        @db.VarChar(30)
+  ano            Int           @db.SmallInt
+  preco          Decimal       @db.Decimal(10, 2)
+  km             Int
+  destaque       Boolean       @default(true) 
+  foto           String      
+  acessorios     String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  combustivel    Combustiveis  @default(FLEX)
+  marca          Marca         @relation(fields: [marcaId], references: [id])
+  marcaId        Int
+  @@map("carros")
 }
 
-model MarcaCarro {
-  id        Int     @id @default(autoincrement())
-  marca     Marca   @relation(fields: [marcaId], references: [id])
-  marcaId   Int
-  carro     Carro   @relation(fields: [carroId], references: [id])
-  carroId   Int
-  @@unique([marcaId, carroId], name: "MarcaCarro")
-  @@map("MarcaCarro")
-}
-
-
-enum combustiveis {
+enum Combustiveis {
   FLEX
   GASOLINA
   ALCOOL
@@ -52,3 +45,5 @@ enum combustiveis {
   ELETRICO
   HIBRIDO
 }
+
+

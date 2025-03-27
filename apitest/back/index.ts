@@ -1,17 +1,20 @@
 import express from 'express'
-import routesCarros from './routes/carros'
-import routesMarcas from './routes/marcas'
 import cors from 'cors'
+
+import routesMarcas from './routes/marcas'
+import routesCarros from './routes/carros'
+
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(express.json())
 app.use(cors())
-app.use("/Carros", routesCarros)
-app.use("/Marcas", routesMarcas)
+
+app.use("/marcas", routesMarcas)
+app.use("/carros", routesCarros)
 
 app.get('/', (req, res) => {
-  res.send('API: Berçário (cadastro de Mães, Médicos e Bebês)')
+  res.send('API: Revenda de Veículos')
 })
 
 app.listen(port, () => {
