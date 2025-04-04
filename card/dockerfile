@@ -1,0 +1,14 @@
+FROM ubuntu:22.04
+RUN apt-get update && install python3.11 install python3.11 -dev install python3.11-pip -y
+WORKDIR /app
+COPY . .
+RUN pip3 install --no-cache-dir -r requirements.txt
+EXPOSE 8080
+ENV LOGOMARCA=https://cdn2.steamgriddb.com/logo_thumb/f73c2c536908327c3e7ab819ea778560.png
+ENV FOTO=https://e7.pngegg.com/pngimages/15/532/png-clipart-konata-izumi-anime-lucky-star-cha-la-head-cha-la-lucky-manga-fictional-character-thumbnail.png
+ENV NOME=KONATAGAMER666
+ENV IDADE=22
+ENV EMAIL=KONATADEATHGAMER666@GMAIL.COM
+ENV PROFISSAO=GAMER
+ENV SITE=YOUNGTHUGARCHIVE.NET
+CMD {"Python3","app.py"}
