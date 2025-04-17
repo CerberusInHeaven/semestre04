@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+model MagicItem {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  rarity      Rarity
+  powerLevel  Int
+  price       Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  categories  MagicItemCategory[]
+}
+
+model MagicItemCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  items       MagicItem[]
+}
+
+enum Rarity {
+  COMMON
+  UNCOMMON
+  RARE
+  VERY_RARE
+  LEGENDARY
+}
