@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
-import { Toaster } from "sonner";
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: "Revenda Herbie",
-  description: "Revenda de Veículos em Pelotas",
-  keywords: ["Revenda", "Veículos", "Carros", "Pelotas"]
+  description: "Revenda de Veículos Usados em Pelotas/RS",
+  keywords: ["revenda", "veículos", "carros", "carros usados", "Pelotas"]
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <Header />
         {children}
-        <Toaster />
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

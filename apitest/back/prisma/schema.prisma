@@ -21,29 +21,47 @@ model Marca {
 }
 
 model Carro {
-  id             Int           @id @default(autoincrement())
-  modelo         String        @db.VarChar(30)
-  ano            Int           @db.SmallInt
-  preco          Decimal       @db.Decimal(10, 2)
+  id             Int          @id @default(autoincrement())
+  modelo         String       @db.VarChar(30)
+  ano            Int          @db.SmallInt
+  preco          Decimal      @db.Decimal(10, 2)
   km             Int
-  destaque       Boolean       @default(true) 
-  foto           String      
+  foto           String
   acessorios     String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  combustivel    Combustiveis  @default(FLEX)
-  marca          Marca         @relation(fields: [marcaId], references: [id])
+  combustivel    Combustiveis @default(FLEX)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt()
+  destaque       Boolean      @default(true)
+  marca          Marca        @relation(fields: [marcaId], references: [id])
   marcaId        Int
+  fotos          Foto[]
   @@map("carros")
+}
+
+model Foto {
+  id             Int          @id @default(autoincrement())
+  descricao      String       @db.VarChar(40)
+  url            String
+  carro          Carro        @relation(fields: [carroId], references: [id])
+  carroId        Int
+  @@map("fotos")
+}
+
+model Cliente {
+  id            String   @db.VarChar(36) @id @default(uuid())
+  nome          String   @db.VarChar(60)
+  email         String   @db.VarChar(40)
+  senha         String   @db.VarChar(60)   // senha deve ser varchar(60)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt  
+  @@map("clientes")
 }
 
 enum Combustiveis {
   FLEX
   GASOLINA
-  ALCOOL
+  ETANOL
   DIESEL
   ELETRICO
   HIBRIDO
 }
-
-

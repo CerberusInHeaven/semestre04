@@ -1,3 +1,4 @@
+import { FotoItf } from "./FotoItf"
 import { MarcaItf } from "./MarcaItf"
 
 export interface CarroItf {
@@ -6,12 +7,13 @@ export interface CarroItf {
     ano: number
     preco: number
     km: number
-    acessorios: string
     destaque: boolean
     foto: string
+    acessorios: string
     createdAt: Date
     updatedAt: Date
+    combustivel: string
     marcaId: number
     marca: MarcaItf
-    combustivel: string
+    fotos: FotoItf[]
 }
