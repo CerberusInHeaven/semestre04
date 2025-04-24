@@ -1,6 +1,9 @@
 "use client"
-import { useForm } from "react-hook-form"
 
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { useClienteStore } from "@/context/ClienteContext"
+import { useRouter } from "next/navigation"
 type inputs = {
     email: string
     senha: string
@@ -10,7 +13,8 @@ type inputs = {
 
 export default function Login() {
     const {register, handleSubmit} = useForm<inputs>()
-
+    const router = useRouter()
+    const {logaCliente} = useClienteStore()
     async function verificalogin(data: inputs){
         alert(`${data.email} ${data.senha} ${data.manter}`)
 
@@ -20,6 +24,19 @@ export default function Login() {
             method: "POST",
             body: JSON.stringify({email: data.email, senha: data.senha})
         })
+
+        if (response.status == 200){
+            const dados = await response.json()
+            console.log(dados)
+
+            //Loga cliente
+             logaCliente(dados)
+
+
+           router.push("/")
+        } else {
+            toast.error("erro... login ou senha incorreto")
+        }
     }
 
     return (
